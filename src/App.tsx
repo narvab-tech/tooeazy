@@ -9,6 +9,7 @@ import Packages from './pages/Packages';
 import HowItWorks from './pages/HowItWorks';
 import Legal from './pages/Legal';
 import Contact from './pages/Contact';
+import NotFound from './pages/NotFound';
 import './App.css';
 
 function App() {
@@ -21,8 +22,9 @@ function App() {
         <Route path="/settle" element={<Layout title="Settle" description="Long-term stability: suburb strategy, accommodation, schooling, jobs, and Medicare guidance."><Settle /></Layout>} />
         <Route path="/packages" element={<Layout title="Packages" description="Choose your support: Decide ($600-900), Arrive ($1,200-1,800), or Settle ($2,000-2,800). Bundles available."><Packages /></Layout>} />
         <Route path="/how-it-works" element={<Layout title="How It Works" description="The D.A.S.H. framework: Decide, Arrive, Settle, Home. Your journey step by step."><HowItWorks /></Layout>} />
-        <Route path="/legal" element={<Layout title="Legal & Compliance" description="Transparency and trust: MARAlaimers, financial information, settlement terms, and privacy policy."><Legal /></Layout>} />
+        <Route path="/legal" element={<Layout title="Legal & Compliance" description="Transparency and trust: MARA disclaimers, financial information, settlement terms, and privacy policy."><Legal /></Layout>} />
         <Route path="/contact" element={<Layout title="Contact" description="Ready when you are. Book a free 15-minute call. We reply within 1 business day."><Contact /></Layout>} />
+        <Route path="*" element={<Layout title="Page Not Found" description="The page you're looking for doesn't exist."><NotFound /></Layout>} />
       </Routes>
     </HelmetProvider>
   );

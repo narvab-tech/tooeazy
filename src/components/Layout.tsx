@@ -38,6 +38,7 @@ export default function Layout({ children, title, description }: LayoutProps) {
 
   const pageTitle = title ? title + ' | TooEazy' : 'TooEazy - Your Life Architect for Australia';
   const pageDescription = description || 'TooEazy helps skilled migrants Decide with confidence, Arrive without friction, and Settle without regret in Australia.';
+  const fullUrl = `https://tooeazy.au${location.pathname === '/' ? '' : location.pathname}`;
 
   return (
     <>
@@ -45,15 +46,22 @@ export default function Layout({ children, title, description }: LayoutProps) {
         <title>{pageTitle}</title>
         <meta name="description" content={pageDescription} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="canonical" href="https://tooeazy.au" />
+        <link rel="canonical" href={fullUrl} />
         <meta property="og:title" content={pageTitle} />
         <meta property="og:description" content={pageDescription} />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://tooeazy.au" />
+        <meta property="og:url" content={fullUrl} />
+        <meta property="og:image" content="https://tooeazy.au/images/og-image.jpg" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={pageTitle} />
         <meta name="twitter:description" content={pageDescription} />
+        <meta name="twitter:image" content="https://tooeazy.au/images/og-image.jpg" />
       </Helmet>
+
+      {/* Skip to content link for accessibility */}
+      <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-[#50BE00] text-white px-4 py-2 rounded-lg z-[60] focus:outline-none">
+        Skip to content
+      </a>
 
       <nav className={scrolled ? 'fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-white/95 backdrop-blur shadow-sm' : 'fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-transparent'}>
         <div className="px-6 lg:px-12 py-5 flex items-center justify-between">
@@ -79,8 +87,7 @@ export default function Layout({ children, title, description }: LayoutProps) {
         </div>
       </nav>
 
-      {mobileMenuOpen && (
-        <div className="fixed inset-0 z-40 bg-[#F4F2EE] flex flex-col items-center justify-center gap-6 lg:hidden">
+      <div className={`fixed inset-0 z-40 bg-[#F4F2EE] flex flex-col items-center justify-center gap-6 lg:hidden transition-all duration-300 ease-in-out ${mobileMenuOpen ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-full pointer-events-none'}`}>
           {navLinks.map((link) => (
             <Link 
               key={link.path} 
@@ -95,9 +102,8 @@ export default function Layout({ children, title, description }: LayoutProps) {
             Book a free call
           </Link>
         </div>
-      )}
 
-      <main>{children}</main>
+      <main id="main-content">{children}</main>
 
       <footer className="bg-[#001450] text-white py-16 px-6 lg:px-12">
         <div className="max-w-6xl mx-auto">
@@ -133,7 +139,7 @@ export default function Layout({ children, title, description }: LayoutProps) {
             </div>
           </div>
           <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4">
-            <p className="text-sm text-white/40">2025 TooEazy. Independent settlement support.</p>
+            <p className="text-sm text-white/40">{new Date().getFullYear()} TooEazy. Independent settlement support.</p>
             <div className="flex items-center gap-6 text-sm text-white/40">
               <Link to="/legal" className="hover:text-white transition-colors">MARA Disclaimer</Link>
               <Link to="/legal" className="hover:text-white transition-colors">Privacy Policy</Link>

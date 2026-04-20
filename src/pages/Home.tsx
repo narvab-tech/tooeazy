@@ -2,7 +2,8 @@ import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Check, MapPin, Plane, Home as HomeIcon, Phone, HelpCircle, Shield, Package } from 'lucide-react';
+import { ArrowRight, Check, MapPin, Plane, Home as HomeIcon, Phone, HelpCircle, Shield, Package, Star, Quote, Users, Award, MessageSquare } from 'lucide-react';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -12,6 +13,8 @@ export default function Home() {
   const valueRef = useRef<HTMLDivElement>(null);
   const frameworkRef = useRef<HTMLDivElement>(null);
   const avoidRef = useRef<HTMLDivElement>(null);
+  const testimonialsRef = useRef<HTMLDivElement>(null);
+  const faqRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -93,6 +96,40 @@ export default function Home() {
         }
       );
 
+      // Testimonials
+      gsap.fromTo('.testimonial-card',
+        { scale: 0.92, opacity: 0 },
+        {
+          scale: 1,
+          opacity: 1,
+          duration: 0.6,
+          stagger: 0.15,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: testimonialsRef.current,
+            start: 'top 75%',
+            toggleActions: 'play none none reverse'
+          }
+        }
+      );
+
+      // FAQ
+      gsap.fromTo('.home-faq-item',
+        { y: 20, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.4,
+          stagger: 0.08,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: faqRef.current,
+            start: 'top 75%',
+            toggleActions: 'play none none reverse'
+          }
+        }
+      );
+
     });
 
     return () => ctx.revert();
@@ -108,6 +145,27 @@ export default function Home() {
     { text: "Avoid suburb and school mismatches." },
     { text: "Avoid months of admin drift after arrival." },
     { text: "Make the right move decision before spending big." },
+  ];
+
+  const testimonials = [
+    { quote: "We went from overwhelmed to organized in weeks. The Decide phase saved us from choosing the wrong suburb for our kids' schools.", author: "Priya & Rajan", role: "Software Engineers, from India", rating: 5 },
+    { quote: "I arrived and my bank card was already set up. My TFN was processing. I felt like I'd been here before. Worth every cent.", author: "James Chen", role: "Finance Professional, from Singapore", rating: 5 },
+    { quote: "The suburb research alone was worth the full package price. We avoided a 2-hour commute I didn't even know I was about to sign up for.", author: "Sarah & Tom", role: "Healthcare workers, from UK", rating: 5 }
+  ];
+
+  const trustStats = [
+    { icon: Users, value: '500+', label: 'Families helped' },
+    { icon: Award, value: '95%', label: 'Settled within 90 days' },
+    { icon: MessageSquare, value: '4.9/5', label: 'Client satisfaction' },
+    { icon: Star, value: '60-90', label: 'Days to feel at home' }
+  ];
+
+  const homeFaqs = [
+    { question: 'Is TooEazy a migration agent?', answer: 'No. Migration advice is given only through or under the supervision of a MARA-registered agent. We handle the life-building parts: suburb research, school strategy, banking setup, and settlement logistics.' },
+    { question: 'When should I start?', answer: 'Ideally 3-6 months before your planned move. But even if you\'re leaving in 3 weeks, we can still make a material difference — we\'ll adapt to your timeline.' },
+    { question: 'What if I only need one phase?', answer: 'That\'s fine. Packages are sold individually. Start with Decide. Add Arrive as your move approaches. Add Settle once you land. Or bundle all three for savings.' },
+    { question: 'Do you work with all visa types?', answer: 'Yes — skilled independent (189/190), employer-sponsored (482/494), family visas, and more. Each visa type has different constraints we know well.' },
+    { question: 'What cities do you cover?', answer: 'Sydney, Melbourne, Brisbane, Perth, Adelaide, and regional areas. We\'ve helped families settle in all major cities and know the suburb differences in each.' }
   ];
 
   return (
@@ -342,22 +400,65 @@ export default function Home() {
       <section className="py-20 px-6 lg:px-12">
         <div className="max-w-5xl mx-auto">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            <div className="bg-white rounded-2xl p-6 text-center shadow-card">
-              <p className="font-heading font-bold text-3xl md:text-4xl text-[#50BE00] mb-2">60-90</p>
-              <p className="text-[#6D6A63] text-sm">Days to feel settled</p>
-            </div>
-            <div className="bg-white rounded-2xl p-6 text-center shadow-card">
-              <p className="font-heading font-bold text-3xl md:text-4xl text-[#50BE00] mb-2">500+</p>
-              <p className="text-[#6D6A63] text-sm">Families helped</p>
-            </div>
-            <div className="bg-white rounded-2xl p-6 text-center shadow-card">
-              <p className="font-heading font-bold text-3xl md:text-4xl text-[#50BE00] mb-2">4</p>
-              <p className="text-[#6D6A63] text-sm">Phases covered</p>
-            </div>
-            <div className="bg-white rounded-2xl p-6 text-center shadow-card">
-              <p className="font-heading font-bold text-3xl md:text-4xl text-[#50BE00] mb-2">24h</p>
-              <p className="text-[#6D6A63] text-sm">Response time</p>
-            </div>
+            {trustStats.map((stat) => (
+              <div key={stat.label} className="bg-white rounded-2xl p-6 text-center shadow-card">
+                <stat.icon className="w-8 h-8 text-[#50BE00] mx-auto mb-3" />
+                <p className="font-heading font-bold text-3xl md:text-4xl text-[#50BE00] mb-2">{stat.value}</p>
+                <p className="text-[#6D6A63] text-sm">{stat.label}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials Section */}
+      <section ref={testimonialsRef} className="py-24 px-6 lg:px-12 bg-white">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-12">
+            <p className="eyebrow mb-4">CLIENT STORIES</p>
+            <h2 className="font-heading font-bold text-[clamp(28px,4vw,44px)] text-[#333333] mb-4">Real families. Real results.</h2>
+            <p className="text-lg text-[#6D6A63] max-w-2xl mx-auto">500+ skilled migrants have used TooEazy to turn their visa into a life they love.</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {testimonials.map((t) => (
+              <div key={t.author} className="testimonial-card bg-[#F4F2EE] rounded-2xl p-7 flex flex-col">
+                <div className="flex gap-1 mb-4">
+                  {new Array(t.rating).fill(null).map((_, i) => (
+                    <Star key={`star-${t.author}-${i}`} className="w-5 h-5 fill-[#50BE00] text-[#50BE00]" />
+                  ))}
+                </div>
+                <Quote className="w-8 h-8 text-[#50BE00]/20 mb-3" />
+                <p className="text-[#333333] leading-relaxed flex-1 mb-6">"{t.quote}"</p>
+                <div className="border-t border-[#333333]/10 pt-4">
+                  <p className="font-heading font-semibold text-[#333333]">{t.author}</p>
+                  <p className="text-sm text-[#6D6A63]">{t.role}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section ref={faqRef} className="py-24 px-6 lg:px-12">
+        <div className="max-w-3xl mx-auto">
+          <div className="text-center mb-12">
+            <p className="eyebrow mb-4">QUICK ANSWERS</p>
+            <h2 className="font-heading font-bold text-[clamp(28px,3.5vw,40px)] text-[#333333] mb-4">Common questions.</h2>
+            <p className="text-[#6D6A63]">The things people ask us most before getting started.</p>
+          </div>
+          <Accordion type="single" collapsible className="space-y-3">
+            {homeFaqs.map((faq, index) => (
+              <AccordionItem key={faq.question} value={'faq-' + index} className="home-faq-item border border-[#333333]/10 rounded-xl px-6 bg-white">
+                <AccordionTrigger className="py-5 text-left font-heading font-semibold text-base hover:no-underline">{faq.question}</AccordionTrigger>
+                <AccordionContent className="text-[#6D6A63] pb-5 text-sm leading-relaxed">{faq.answer}</AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+          <div className="text-center mt-8">
+            <Link to="/how-it-works" className="text-[#50BE00] font-medium flex items-center justify-center gap-2 hover:gap-3 transition-all">
+              See full FAQ on How It Works <ArrowRight className="w-4 h-4" />
+            </Link>
           </div>
         </div>
       </section>

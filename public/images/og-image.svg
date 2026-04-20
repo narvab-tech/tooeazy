@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#001450"/>
+  <rect x="0" y="0" width="6" height="630" fill="#50BE00"/>
+  <text x="80" y="200" font-family="Arial, sans-serif" font-size="24" font-weight="600" fill="#E6E0B8" letter-spacing="6">DECIDE · ARRIVE · SETTLE · HOME</text>
+  <text x="80" y="310" font-family="Arial, sans-serif" font-size="72" font-weight="800" fill="#FFFFFF">TooEazy</text>
+  <text x="80" y="390" font-family="Arial, sans-serif" font-size="32" fill="#50BE00" font-weight="600">Your Life Architect for Australia</text>
+  <text x="80" y="460" font-family="Arial, sans-serif" font-size="22" fill="rgba(255,255,255,0.7)">Turn your visa into a life you love.</text>
+  <text x="80" y="570" font-family="Arial, sans-serif" font-size="18" fill="rgba(255,255,255,0.5)">tooeazy.au</text>
+  <circle cx="1050" cy="315" r="180" fill="none" stroke="#50BE00" stroke-width="2" opacity="0.3"/>
+  <circle cx="1050" cy="315" r="140" fill="none" stroke="#50BE00" stroke-width="2" opacity="0.2"/>
+  <circle cx="1050" cy="315" r="100" fill="#50BE00" opacity="0.15"/>
+  <text x="1050" y="295" font-family="Arial, sans-serif" font-size="72" font-weight="800" fill="#50BE00" text-anchor="middle">D</text>
+  <text x="1050" y="360" font-family="Arial, sans-serif" font-size="20" fill="rgba(255,255,255,0.6)" text-anchor="middle">A.S.H.</text>
+</svg>

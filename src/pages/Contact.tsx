@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Mail, MapPin, Clock, Phone, Send, Check } from 'lucide-react';
+import { Mail, MapPin, Clock, Phone, Send, Check, AlertCircle, Loader2 } from 'lucide-react';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -9,10 +9,63 @@ import { toast } from 'sonner';
 
 gsap.registerPlugin(ScrollTrigger);
 
+interface ContactFormData {
+  name: string;
+  email: string;
+  location: string;
+  arrival: string;
+  visaStatus: string;
+  message: string;
+  honeypot: string;
+}
+
+interface ContactFormErrors {
+  name?: string;
+  email?: string;
+  message?: string;
+}
+
 export default function Contact() {
   const heroRef = useRef<HTMLDivElement>(null);
   const formRef = useRef<HTMLDivElement>(null);
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState<ContactFormErrors>({});
+  const [formData, setFormData] = useState<ContactFormData>({
+    name: '', email: '', location: '', arrival: '', visaStatus: '', message: '', honeypot: ''
+  });
+
+  const validate = (): boolean => {
+    const newErrors: ContactFormErrors = {};
+    if (!formData.name.trim()) newErrors.name = 'Name is required';
+    else if (formData.name.trim().length < 2) newErrors.name = 'Name must be at least 2 characters';
+    if (!formData.email.trim()) newErrors.email = 'Email is required';
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) newErrors.email = 'Please enter a valid email address';
+    if (!formData.message.trim()) newErrors.message = 'Message is required';
+    else if (formData.message.trim().length < 10) newErrors.message = 'Message must be at least 10 characters';
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { id, value } = e.target;
+    const key = id === 'visa-status' ? 'visaStatus' : id;
+    setFormData(prev => ({ ...prev, [key]: value }));
+    if (errors[id as keyof ContactFormErrors]) {
+      setErrors(prev => ({ ...prev, [id]: undefined }));
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (formData.honeypot) return; // Honeypot spam check
+    if (!validate()) return;
+    setLoading(true);
+    await new Promise(resolve => setTimeout(resolve, 1200));
+    setLoading(false);
+    setSubmitted(true);
+    toast.success("Message sent! We'll reply within 1 business day.");
+  };
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -26,12 +79,6 @@ export default function Contact() {
     });
     return () => ctx.revert();
   }, []);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setSubmitted(true);
-    toast.success("Message sent! We'll reply within 1 business day.");
-  };
 
   const contactInfo = [
     { icon: Mail, label: 'Email', value: 'hello@tooeazy.au', href: 'mailto:hello@tooeazy.au' },
@@ -58,7 +105,7 @@ export default function Contact() {
         <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             <div>
-              <img src="/images/contact_support.jpg" alt="Customer support team" className="rounded-2xl shadow-image w-full object-cover aspect-video mb-8" />
+              <img src="/images/contact_support.jpg" alt="Customer support team" className="rounded-2xl shadow-image w-full object-cover aspect-video mb-8" loading="lazy" />
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {contactInfo.map((info) => (
                   <div key={info.label} className="info-card bg-white rounded-xl p-5 flex items-start gap-4">
@@ -91,36 +138,85 @@ export default function Contact() {
                 <>
                   <h3 className="font-heading font-bold text-2xl text-[#333333] mb-2">Send us a message</h3>
                   <p className="text-[#6D6A63] mb-6">Fill in the form below and we'll get back to you shortly.</p>
-                  <form onSubmit={handleSubmit} className="space-y-5">
+                  <form onSubmit={handleSubmit} noValidate className="space-y-5">
+                    {/* Honeypot - hidden from real users */}
+                    <input
+                      type="text"
+                      id="honeypot"
+                      value={formData.honeypot}
+                      onChange={handleChange}
+                      className="absolute opacity-0 h-0 w-0 pointer-events-none"
+                      tabIndex={-1}
+                      aria-hidden="true"
+                      autoComplete="off"
+                    />
                     <div>
                       <Label htmlFor="name" className="text-[#333333]">Name *</Label>
-                      <Input id="name" placeholder="Your full name" className="bg-[#F4F2EE] border-0 mt-1" required />
+                      <Input
+                        id="name"
+                        value={formData.name}
+                        onChange={handleChange}
+                        placeholder="Your full name"
+                        className={`bg-[#F4F2EE] border-0 mt-1 ${errors.name ? 'ring-2 ring-red-400' : ''}`}
+                      />
+                      {errors.name && (
+                        <p className="flex items-center gap-1 text-red-500 text-sm mt-1">
+                          <AlertCircle className="w-4 h-4" />{errors.name}
+                        </p>
+                      )}
                     </div>
                     <div>
                       <Label htmlFor="email" className="text-[#333333]">Email *</Label>
-                      <Input id="email" type="email" placeholder="your@email.com" className="bg-[#F4F2EE] border-0 mt-1" required />
+                      <Input
+                        id="email"
+                        type="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        placeholder="your@email.com"
+                        className={`bg-[#F4F2EE] border-0 mt-1 ${errors.email ? 'ring-2 ring-red-400' : ''}`}
+                      />
+                      {errors.email && (
+                        <p className="flex items-center gap-1 text-red-500 text-sm mt-1">
+                          <AlertCircle className="w-4 h-4" />{errors.email}
+                        </p>
+                      )}
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
                         <Label htmlFor="location" className="text-[#333333]">Current Location</Label>
-                        <Input id="location" placeholder="City, Country" className="bg-[#F4F2EE] border-0 mt-1" />
+                        <Input id="location" value={formData.location} onChange={handleChange} placeholder="City, Country" className="bg-[#F4F2EE] border-0 mt-1" />
                       </div>
                       <div>
                         <Label htmlFor="arrival" className="text-[#333333]">Planned Arrival</Label>
-                        <Input id="arrival" placeholder="e.g., March 2025" className="bg-[#F4F2EE] border-0 mt-1" />
+                        <Input id="arrival" value={formData.arrival} onChange={handleChange} placeholder="e.g., June 2026" className="bg-[#F4F2EE] border-0 mt-1" />
                       </div>
                     </div>
                     <div>
                       <Label htmlFor="visa-status" className="text-[#333333]">Visa Status</Label>
-                      <Input id="visa-status" placeholder="e.g., Applied, Granted, Planning" className="bg-[#F4F2EE] border-0 mt-1" />
+                      <Input id="visa-status" value={formData.visaStatus} onChange={handleChange} placeholder="e.g., Applied, Granted, Planning" className="bg-[#F4F2EE] border-0 mt-1" />
                     </div>
                     <div>
                       <Label htmlFor="message" className="text-[#333333]">Message *</Label>
-                      <Textarea id="message" placeholder="Tell us about your move..." rows={4} className="bg-[#F4F2EE] border-0 mt-1 resize-none" required />
+                      <Textarea
+                        id="message"
+                        value={formData.message}
+                        onChange={handleChange}
+                        placeholder="Tell us about your move..."
+                        rows={4}
+                        className={`bg-[#F4F2EE] border-0 mt-1 resize-none ${errors.message ? 'ring-2 ring-red-400' : ''}`}
+                      />
+                      {errors.message && (
+                        <p className="flex items-center gap-1 text-red-500 text-sm mt-1">
+                          <AlertCircle className="w-4 h-4" />{errors.message}
+                        </p>
+                      )}
                     </div>
-                    <button type="submit" className="btn-primary w-full">
-                      <Send className="mr-2 w-4 h-4" />
-                      Send Message
+                    <button type="submit" disabled={loading} className="btn-primary w-full disabled:opacity-70 disabled:cursor-not-allowed">
+                      {loading ? (
+                        <><Loader2 className="mr-2 w-4 h-4 animate-spin" />Sending...</>
+                      ) : (
+                        <><Send className="mr-2 w-4 h-4" />Send Message</>
+                      )}
                     </button>
                     <p className="text-xs text-[#6D6A63] text-center">
                       By submitting, you agree to our <a href="/legal" className="text-[#50BE00] hover:underline">Privacy Policy</a>.
@@ -142,8 +238,8 @@ export default function Contact() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               { num: '1', title: 'We Respond', desc: "Within 1 business day, we'll reply with available times." },
-              { num: '2', title: 'Free Consultation', desc: 'A 15-minute call to understand your needs.' },
-              { num: '3', title: 'Get Started', desc: 'We begin with a clear plan and timeline.' }
+              { num: '2', title: 'Free Consultation', desc: 'A 15-minute call to understand your needs and timeline.' },
+              { num: '3', title: 'Get Started', desc: 'We begin with a clear plan tailored to your situation.' }
             ].map((step) => (
               <div key={step.num} className="text-center">
                 <div className="w-16 h-16 bg-[#50BE00]/10 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -159,3 +255,4 @@ export default function Contact() {
     </div>
   );
 }
+

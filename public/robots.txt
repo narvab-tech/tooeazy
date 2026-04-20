@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://tooeazy.au/sitemap.xml
+
+# Block admin/internal paths
+Disallow: /api/
+Disallow: /admin/

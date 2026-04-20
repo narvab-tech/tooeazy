@@ -1,14 +1,100 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Link } from 'react-router-dom';
-import { Check, Clock, Calendar, Info, Package } from 'lucide-react';
+import { Check, Clock, Calendar, Info, Package, AlertCircle, Loader2 } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { toast } from 'sonner';
 
 gsap.registerPlugin(ScrollTrigger);
+
+interface BookingFormErrors {
+  name?: string;
+  email?: string;
+}
+
+function BookingForm({ packageName }: Readonly<{ packageName: string }>) {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [errors, setErrors] = useState<BookingFormErrors>({});
+
+  const validate = (): boolean => {
+    const newErrors: BookingFormErrors = {};
+    if (!name.trim()) newErrors.name = 'Name is required';
+    if (!email.trim()) newErrors.email = 'Email is required';
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) newErrors.email = 'Please enter a valid email';
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!validate()) return;
+    setLoading(true);
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    setLoading(false);
+    setSubmitted(true);
+    toast.success(`Booking request sent for ${packageName}! We'll contact you within 24 hours.`);
+  };
+
+  if (submitted) {
+    return (
+      <div className="text-center py-8">
+        <div className="w-14 h-14 bg-[#50BE00]/10 rounded-full flex items-center justify-center mx-auto mb-4">
+          <Check className="w-7 h-7 text-[#50BE00]" />
+        </div>
+        <h3 className="font-heading font-bold text-xl text-[#333333] mb-2">Request Received!</h3>
+        <p className="text-[#6D6A63] text-sm">We'll contact you within 24 hours.</p>
+      </div>
+    );
+  }
+
+  return (
+    <form onSubmit={handleSubmit} noValidate className="space-y-4">
+      <div>
+        <Label htmlFor={`booking-name-${packageName}`} className="text-[#333333]">Name *</Label>
+        <Input
+          id={`booking-name-${packageName}`}
+          value={name}
+          onChange={e => { setName(e.target.value); if (errors.name) setErrors((p: BookingFormErrors) => ({...p, name: undefined})); }}
+          placeholder="Your name"
+          className={errors.name ? 'ring-2 ring-red-400' : ''}
+        />
+        {errors.name && <p className="flex items-center gap-1 text-red-500 text-sm mt-1"><AlertCircle className="w-4 h-4" />{errors.name}</p>}
+      </div>
+      <div>
+        <Label htmlFor={`booking-email-${packageName}`} className="text-[#333333]">Email *</Label>
+        <Input
+          id={`booking-email-${packageName}`}
+          type="email"
+          value={email}
+          onChange={e => { setEmail(e.target.value); if (errors.email) setErrors((p: BookingFormErrors) => ({...p, email: undefined})); }}
+          placeholder="your@email.com"
+          className={errors.email ? 'ring-2 ring-red-400' : ''}
+        />
+        {errors.email && <p className="flex items-center gap-1 text-red-500 text-sm mt-1"><AlertCircle className="w-4 h-4" />{errors.email}</p>}
+      </div>
+      <div>
+        <Label htmlFor={`booking-phone-${packageName}`} className="text-[#333333]">Phone (optional)</Label>
+        <Input
+          id={`booking-phone-${packageName}`}
+          type="tel"
+          value={phone}
+          onChange={e => setPhone(e.target.value)}
+          placeholder="+61 ..."
+        />
+      </div>
+      <button type="submit" disabled={loading} className="btn-primary w-full disabled:opacity-70 disabled:cursor-not-allowed">
+        {loading ? <><Loader2 className="mr-2 w-4 h-4 animate-spin" />Sending...</> : 'Request Booking'}
+      </button>
+    </form>
+  );
+}
 
 export default function Packages() {
   const heroRef = useRef<HTMLDivElement>(null);
@@ -31,11 +117,6 @@ export default function Packages() {
     });
     return () => ctx.revert();
   }, []);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    toast.success('Booking request sent! We will contact you within 24 hours.');
-  };
 
   const packages = [
     { name: 'DECIDE', price: '600-900', timeframe: 'Visa grant to 3 weeks prior', features: ['Lifestyle consult', 'Visa clarity (MARA-governed)', 'Location and family feasibility', 'Cost-of-living reality check', 'Schooling feasibility'], popular: false },
@@ -105,21 +186,7 @@ export default function Packages() {
                       <DialogTitle className="font-heading font-bold text-2xl">Book {pkg.name} Package</DialogTitle>
                     </DialogHeader>
                     <p className="text-[#6D6A63] mb-4">Fill in your details and we will contact you within 24 hours.</p>
-                    <form onSubmit={handleSubmit} className="space-y-4">
-                      <div>
-                        <Label htmlFor="name">Name</Label>
-                        <Input id="name" placeholder="Your name" />
-                      </div>
-                      <div>
-                        <Label htmlFor="email">Email</Label>
-                        <Input id="email" type="email" placeholder="your@email.com" />
-                      </div>
-                      <div>
-                        <Label htmlFor="phone">Phone</Label>
-                        <Input id="phone" placeholder="+61 ..." />
-                      </div>
-                      <button type="submit" className="btn-primary w-full">Request Booking</button>
-                    </form>
+                    <BookingForm packageName={pkg.name} />
                   </DialogContent>
                 </Dialog>
               </div>

@@ -52,7 +52,7 @@ export default function Arrive() {
         <div className="max-w-7xl mx-auto w-full">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
             <div className="arrive-hero-image order-1 lg:order-1">
-              <img src="/images/arrive_airport.jpg" alt="Confident arrival at Australian airport" className="rounded-2xl shadow-image w-full object-cover aspect-[4/3]" />
+              <img src="/images/land_arrival.jpg" alt="Confident arrival at Australian airport" className="rounded-2xl shadow-image w-full object-cover aspect-[4/3]" loading="lazy" />
             </div>
             <div className="arrive-hero-text order-2 lg:order-2">
               <p className="eyebrow mb-6">A - ARRIVE</p>
@@ -122,7 +122,7 @@ export default function Arrive() {
                 <li className="flex items-center gap-3 text-[#6D6A63]"><Check className="w-5 h-5 text-[#50BE00]" /> International transfer setup</li>
               </ul>
             </div>
-            <div><img src="/images/arrive_banking.jpg" alt="Mobile banking setup" className="rounded-2xl shadow-image w-full object-cover aspect-[4/3]" /></div>
+            <div><img src="/images/land_banking.jpg" alt="Mobile banking setup" className="rounded-2xl shadow-image w-full object-cover aspect-[4/3]" loading="lazy" /></div>
           </div>
         </div>
       </section>
