@@ -39,16 +39,22 @@ module.exports = {
           foreground: "hsl(var(--card-foreground))",
         },
         too: {
+          navy: '#001450',
+          green: '#50BE00',
+          'green-hover': '#3F9C00',
+          sand: '#E6E0B8',
           bg: '#F4F2EE',
-          dark: '#111111',
-          accent: '#2F6BFF',
-          text: '#111111',
+          'grey-light': '#F5F6F8',
+          dark: '#333333',
+          text: '#333333',
           'text-secondary': '#6D6A63',
+          // Legacy alias
+          accent: '#50BE00',
         },
       },
       fontFamily: {
-        sans: ['Inter', 'sans-serif'],
-        heading: ['Sora', 'sans-serif'],
+        sans: ['Open Sans', 'sans-serif'],
+        heading: ['Poppins', 'sans-serif'],
       },
       borderRadius: {
         xl: "calc(var(--radius) + 4px)",

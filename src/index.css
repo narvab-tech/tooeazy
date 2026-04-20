@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Open+Sans:wght@300;400;500;600&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -12,27 +12,34 @@
     --card-foreground: 0 0% 7%;
     --popover: 40 18% 95%;
     --popover-foreground: 0 0% 7%;
-    --primary: 220 100% 59%;
+    --primary: 97 100% 37%;
     --primary-foreground: 0 0% 100%;
     --secondary: 40 10% 90%;
     --secondary-foreground: 0 0% 7%;
     --muted: 40 10% 90%;
     --muted-foreground: 40 5% 42%;
-    --accent: 220 100% 59%;
+    --accent: 97 100% 37%;
     --accent-foreground: 0 0% 100%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
     --border: 40 10% 85%;
     --input: 40 10% 85%;
-    --ring: 220 100% 59%;
+    --ring: 97 100% 37%;
     --radius: 0.5rem;
     
-    /* Custom TooEazy colors */
+    /* Custom TooEazy Brand Colors */
+    --too-navy: #001450;
+    --too-green: #50BE00;
+    --too-green-hover: #3F9C00;
+    --too-sand: #E6E0B8;
     --too-bg: #F4F2EE;
-    --too-dark: #111111;
-    --too-accent: #2F6BFF;
-    --too-text: #111111;
+    --too-grey-light: #F5F6F8;
+    --too-dark: #333333;
+    --too-text: #333333;
     --too-text-secondary: #6D6A63;
+    
+    /* Legacy aliases */
+    --too-accent: #50BE00;
   }
 }
 
@@ -46,40 +53,46 @@
   }
   
   body {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Open Sans', sans-serif;
     background-color: var(--too-bg);
     color: var(--too-text);
     overflow-x: hidden;
   }
   
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Sora', sans-serif;
-    letter-spacing: -0.03em;
-    line-height: 0.95;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
   }
 }
 
 @layer components {
   .eyebrow {
     @apply text-xs font-medium uppercase tracking-[0.14em] text-[#6D6A63];
-    font-family: 'Inter', sans-serif;
+    font-family: 'Open Sans', sans-serif;
   }
   
   .btn-primary {
-    @apply inline-flex items-center justify-center px-8 py-4 bg-[#2F6BFF] text-white font-medium rounded-full transition-all duration-300;
+    @apply inline-flex items-center justify-center px-8 py-4 bg-[#50BE00] text-white font-medium transition-all duration-300;
+    border-radius: 8px;
   }
   
   .btn-primary:hover {
     @apply transform -translate-y-0.5 scale-[1.01];
-    box-shadow: 0 10px 30px rgba(47, 107, 255, 0.3);
+    background-color: #3F9C00;
+    box-shadow: 0 10px 30px rgba(80, 190, 0, 0.3);
   }
   
   .btn-secondary {
-    @apply inline-flex items-center justify-center px-8 py-4 text-[#111111] font-medium transition-all duration-300;
+    @apply inline-flex items-center justify-center px-8 py-4 text-[#333333] font-medium transition-all duration-300;
+    border-radius: 8px;
+    border: 2px solid #50BE00;
   }
   
   .btn-secondary:hover {
     @apply transform -translate-y-0.5;
+    background-color: #50BE00;
+    color: white;
   }
   
   .section-pinned {
@@ -100,7 +113,7 @@
   }
   
   .accent-block {
-    @apply absolute bg-[#2F6BFF];
+    @apply absolute bg-[#50BE00];
   }
   
   .text-panel {
@@ -142,5 +155,5 @@
 
 /* Selection */
 ::selection {
-  background: rgba(47, 107, 255, 0.2);
+  background: rgba(80, 190, 0, 0.2);
 }
