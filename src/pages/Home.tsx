@@ -136,21 +136,21 @@ export default function Home() {
   }, []);
 
   const keyQuestions = [
-    { icon: HelpCircle, question: "I've arrived. Now what?" },
-    { icon: HelpCircle, question: "How do I make this work long-term?" },
-    { icon: HelpCircle, question: "Am I really doing this?" },
+    { icon: HelpCircle, question: "We've landed. The kids are jet-lagged. Where do we even begin?" },
+    { icon: HelpCircle, question: "What if we chose the wrong suburb? The wrong school zone?" },
+    { icon: HelpCircle, question: "How long until this actually feels like home?" },
   ];
 
   const avoidPoints = [
-    { text: "Avoid suburb and school mismatches." },
-    { text: "Avoid months of admin drift after arrival." },
-    { text: "Make the right move decision before spending big." },
+    { text: "Catch the suburb-to-school mismatch before you sign a lease." },
+    { text: "Cut through the 8-week admin fog that follows most arrivals." },
+    { text: "Know if Australia truly fits your family — before the big spend." },
   ];
 
   const testimonials = [
-    { quote: "We went from overwhelmed to organized in weeks. The Decide phase saved us from choosing the wrong suburb for our kids' schools.", author: "Priya & Rajan", role: "Software Engineers, from India", rating: 5 },
-    { quote: "I arrived and my bank card was already set up. My TFN was processing. I felt like I'd been here before. Worth every cent.", author: "James Chen", role: "Finance Professional, from Singapore", rating: 5 },
-    { quote: "The suburb research alone was worth the full package price. We avoided a 2-hour commute I didn't even know I was about to sign up for.", author: "Sarah & Tom", role: "Healthcare workers, from UK", rating: 5 }
+    { quote: "We were about to sign a lease in a suburb 40 minutes from our kids' school zone. The Decide phase caught it. TooEazy saved us from a relocation we never saw coming.", author: "Priya & Rajan", role: "Software Engineers, from India", rating: 5 },
+    { quote: "Day one: I landed, opened my banking app, and my card worked instantly. TFN already processing. I'd never been to Australia before — but I moved through customs like I'd lived here for years.", author: "James Chen", role: "Finance Professional, from Singapore", rating: 5 },
+    { quote: "Two families we know moved to Australia the same month as us — without TooEazy. Both have already relocated once. We're still in our first suburb, 18 months in.", author: "Sarah & Tom", role: "Healthcare workers, from UK", rating: 5 }
   ];
 
   const trustStats = [
@@ -177,18 +177,18 @@ export default function Home() {
             <div className="hero-content">
               <p className="eyebrow mb-6">DECIDE / ARRIVE / SETTLE / HOME</p>
               <h1 className="font-heading font-bold text-[clamp(36px,5vw,64px)] text-[#333333] mb-6 leading-[1.1]">
-                Turn your visa into a<br />
-                <span className="text-[#50BE00]">functioning life</span> in Australia.
+                You've earned your visa.<br />
+                <span className="text-[#50BE00]">Now build the life</span> that comes with it.
               </h1>
               <p className="text-lg lg:text-xl text-[#6D6A63] mb-4 max-w-lg leading-relaxed">
-                To call Australia, 'Home' - we help you move smarter from day one.
+                Moving to Australia is one decision. The 200 smaller ones that follow — suburb, school zone, bank, job market — that's where families lose months and momentum.
               </p>
               <p className="text-base text-[#6D6A63] mb-8 max-w-lg">
-                A clear plan, local knowledge, and hands-on help - so you arrive ready and settle faster.
+                TooEazy cuts through the complexity so you arrive ready, settle faster, and build a life that actually fits.
               </p>
               <div className="flex flex-wrap items-center gap-4">
                 <Link to="/contact" className="btn-primary">
-                  Book your first consult - it's on us
+                  Book your free consult — 15 minutes
                   <ArrowRight className="ml-2 w-4 h-4" />
                 </Link>
                 <Link to="/packages" className="btn-secondary">
@@ -229,7 +229,7 @@ export default function Home() {
           <div className="text-center mb-12">
             <p className="eyebrow mb-4">SOUND FAMILIAR?</p>
             <h2 className="font-heading font-bold text-[clamp(28px,3.5vw,40px)] text-[#333333]">
-              Questions keeping you up at night
+              Every migrant asks these questions at 2am.
             </h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -253,12 +253,10 @@ export default function Home() {
                 A life architect,<br />not a relocation helper.
               </h2>
               <p className="text-lg text-[#6D6A63] mb-6 leading-relaxed">
-                Most services focus on flights, shipping and checklists after you've already decided. 
-                <strong className="text-[#333333]"> TooEazy starts earlier:</strong> we design the life you are moving into.
+                Most services help you move.<strong className="text-[#333333]"> We help you move well.</strong> The difference is measured in months of lost time, thousands in avoidable mistakes, and the quiet weight of landing in the wrong place.
               </p>
               <p className="text-base text-[#6D6A63] mb-8 leading-relaxed">
-                We work alongside your migration agent and other licensed professionals to reduce risks, 
-                avoid costly mistakes, and shorten the 'lost' months after landing.
+                We work alongside your migration agent and licensed professionals — cutting through complexity, avoiding the traps, and closing the gap between arriving and actually living here.
               </p>
               <Link to="/how-it-works" className="btn-primary">
                 See how it works
@@ -288,7 +286,7 @@ export default function Home() {
               Decide. Arrive. Settle. Home.
             </h2>
             <p className="text-lg text-[#6D6A63] max-w-2xl mx-auto">
-              Four phases to transform your visa into a life you love - with clarity, confidence, and support at every step.
+              Four phases. Each one removes a layer of stress, risk, and guesswork from your migration journey.
             </p>
           </div>
 
@@ -300,7 +298,7 @@ export default function Home() {
               </div>
               <h3 className="font-heading font-bold text-xl text-[#333333] mb-2">D - Decide</h3>
               <p className="text-[#6D6A63] mb-4 text-sm leading-relaxed">
-                Make the right move decision before you invest in visas, flights and shipping.
+                Test whether Australia truly fits before you invest in visas, flights, and shipping.
               </p>
               <ul className="space-y-2 mb-5">
                 <li className="flex items-center gap-2 text-sm text-[#6D6A63]">
@@ -325,7 +323,7 @@ export default function Home() {
               </div>
               <h3 className="font-heading font-bold text-xl text-[#333333] mb-2">A - Arrive</h3>
               <p className="text-[#6D6A63] mb-4 text-sm leading-relaxed">
-                Arrive with core life-admin planned, so you can focus on settling in.
+                Land with your bank, phone, TFN, and transport sorted. Walk off that plane ready.
               </p>
               <ul className="space-y-2 mb-5">
                 <li className="flex items-center gap-2 text-sm text-[#6D6A63]">
@@ -350,7 +348,7 @@ export default function Home() {
               </div>
               <h3 className="font-heading font-bold text-xl text-[#333333] mb-2">S - Settle</h3>
               <p className="text-[#6D6A63] mb-4 text-sm leading-relaxed">
-                Build stability, community, and long-term advantage in your new home.
+                Schools, suburbs, healthcare, career. Built right the first time — not corrected six months later.
               </p>
               <ul className="space-y-2 mb-5">
                 <li className="flex items-center gap-2 text-sm text-[#6D6A63]">
@@ -375,7 +373,7 @@ export default function Home() {
               </div>
               <h3 className="font-heading font-bold text-xl text-white mb-2">H - Home Bundle</h3>
               <p className="text-white/70 mb-4 text-sm leading-relaxed">
-                End-to-end support from first thoughts to feeling at home.
+                From 'should we move?' to 'this is home.' Everything in one package.
               </p>
               <ul className="space-y-2 mb-5">
                 <li className="flex items-center gap-2 text-sm text-white/70">
@@ -417,7 +415,7 @@ export default function Home() {
           <div className="text-center mb-12">
             <p className="eyebrow mb-4">CLIENT STORIES</p>
             <h2 className="font-heading font-bold text-[clamp(28px,4vw,44px)] text-[#333333] mb-4">Real families. Real results.</h2>
-            <p className="text-lg text-[#6D6A63] max-w-2xl mx-auto">500+ skilled migrants have used TooEazy to turn their visa into a life they love.</p>
+            <p className="text-lg text-[#6D6A63] max-w-2xl mx-auto">Families who moved with a plan. Here's what the difference looked like.</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {testimonials.map((t) => (
@@ -444,8 +442,8 @@ export default function Home() {
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-12">
             <p className="eyebrow mb-4">QUICK ANSWERS</p>
-            <h2 className="font-heading font-bold text-[clamp(28px,3.5vw,40px)] text-[#333333] mb-4">Common questions.</h2>
-            <p className="text-[#6D6A63]">The things people ask us most before getting started.</p>
+            <h2 className="font-heading font-bold text-[clamp(28px,3.5vw,40px)] text-[#333333] mb-4">The questions people ask before they start.</h2>
+            <p className="text-[#6D6A63]">Real questions. Honest answers.</p>
           </div>
           <Accordion type="single" collapsible className="space-y-3">
             {homeFaqs.map((faq, index) => (
@@ -468,10 +466,10 @@ export default function Home() {
         <div className="max-w-4xl mx-auto text-center">
           <p className="eyebrow mb-4 text-[#E6E0B8]">READY TO START?</p>
           <h2 className="font-heading font-bold text-[clamp(28px,4vw,44px)] text-white mb-6">
-            Your Australian journey begins with a conversation.
+            Your Australian life is waiting. Let's build it right.
           </h2>
           <p className="text-lg text-white/70 mb-8 max-w-2xl mx-auto">
-            Book your first consult here. No obligations, and it's on us. We reply within 1 business day.
+            The first conversation is free. No pitch, no pressure — just honest clarity on what your move looks like.
           </p>
           <Link to="/contact" className="btn-primary inline-flex">
             <Phone className="mr-2 w-5 h-5" />

@@ -30,20 +30,20 @@ export default function Arrive() {
   }, []);
 
   const checklist = [
-    { icon: CreditCard, title: 'Bank Activation Strategy', desc: 'Set up your Australian bank account before you arrive.' },
-    { icon: Smartphone, title: 'Mobile / eSIM', desc: 'Get connected immediately with the right phone plan.' },
-    { icon: FileCheck, title: 'TFN Guidance', desc: 'Tax File Number application made simple.' },
-    { icon: Bus, title: 'Transport Cards', desc: 'Opal, Myki, or Go Card set up for immediate use.' },
-    { icon: Shield, title: 'Health Insurance Explanation', desc: 'Understand your coverage options clearly.' },
-    { icon: Mail, title: 'Mail Redirection', desc: "Ensure you don't miss important correspondence." },
-    { icon: Package, title: 'Cargo Coordination Logic', desc: 'Plan your shipment timing and logistics.' },
+    { icon: CreditCard, title: 'Bank Activation Strategy', desc: 'Open your Australian account before you land — online, in advance, no branch visit needed.' },
+    { icon: Smartphone, title: 'Mobile / eSIM', desc: 'Land with a working number. Your Australian SIM or eSIM, set up remotely before departure.' },
+    { icon: FileCheck, title: 'TFN Guidance', desc: 'Your Tax File Number starts processing before Day One. You’re compliant from the start.' },
+    { icon: Bus, title: 'Transport Cards', desc: 'Opal, Myki, Go Card — loaded and ready so you can move from the airport immediately.' },
+    { icon: Shield, title: 'Health Insurance Explanation', desc: 'We walk you through your options clearly. You choose knowing the real trade-offs, not just the brochure.' },
+    { icon: Mail, title: 'Mail Redirection', desc: 'Redirected so nothing important falls through the cracks during the chaos of the first few weeks.' },
+    { icon: Package, title: 'Cargo Coordination Logic', desc: 'We help you time your shipment to match your accommodation — not the other way around.' },
   ];
 
   const feelings = [
-    "Can I operate from Day One?",
-    "I don't want to waste my first 2 weeks.",
-    "I need to be contactable, banked, and compliant immediately.",
-    "I can't afford delays for work or school."
+    "My card doesn't work here. I have $80 cash and a jetlagged family.",
+    "I've used 3 weeks of annual leave for this. I can't spend it queueing at a bank.",
+    "My first day at work is Monday. I need to be contactable and compliant by Friday.",
+    "The kids start school in 4 days. Every hour counts."
   ];
 
   return (
@@ -57,10 +57,10 @@ export default function Arrive() {
             <div className="arrive-hero-text order-2 lg:order-2">
               <p className="eyebrow mb-6">A - ARRIVE</p>
               <h1 className="font-heading font-bold text-[clamp(40px,6vw,72px)] text-[#333333] mb-6 leading-[1.05]">
-                Arrive with your<br /><span className="text-[#50BE00]">essentials ready.</span>
+                Walk off that plane<br /><span className="text-[#50BE00]">like you've been here before.</span>
               </h1>
               <p className="text-lg lg:text-xl text-[#6D6A63] mb-8 max-w-lg leading-relaxed">
-                Day-one readiness: bank, mobile, TFN, transport, and insurance guidance. From 3 weeks before departure until arrival (Day 0).
+                Your first 72 hours in a new country set the tone for everything that follows. We make sure yours go right — bank activated, phone working, TFN in progress, and a clear plan for the week ahead.
               </p>
               <Link to="/contact" className="btn-primary">Prepare for Day One<ArrowRight className="ml-2 w-4 h-4" /></Link>
             </div>
@@ -72,7 +72,7 @@ export default function Arrive() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <p className="eyebrow mb-4">YOUR CONCERNS</p>
-            <h2 className="font-heading font-bold text-[clamp(28px,3.5vw,40px)] text-[#333333]">We understand the pressure of arrival day.</h2>
+            <h2 className="font-heading font-bold text-[clamp(28px,3.5vw,40px)] text-[#333333]">Because this is what arrival day actually feels like.</h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {feelings.map((feeling, idx) => (
@@ -88,8 +88,8 @@ export default function Arrive() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <p className="eyebrow mb-4">YOUR DAY-ONE CHECKLIST</p>
-            <h2 className="font-heading font-bold text-[clamp(32px,4vw,48px)] text-[#333333] mb-4">Everything ready before you arrive.</h2>
-            <p className="text-lg text-[#6D6A63] max-w-2xl mx-auto">Behind-the-scenes support that ensures you arrive ready — not scrambling.</p>
+            <h2 className="font-heading font-bold text-[clamp(32px,4vw,48px)] text-[#333333] mb-4">Everything sorted before you land.</h2>
+            <p className="text-lg text-[#6D6A63] max-w-2xl mx-auto">We handle the setup so your first day is about exploring your new city — not standing in queues.</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {checklist.map((item) => (
@@ -110,8 +110,8 @@ export default function Arrive() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
               <p className="eyebrow mb-4">BANKING & FINANCE</p>
-              <h2 className="font-heading font-bold text-[clamp(28px,3.5vw,40px)] text-[#333333] mb-6">Banked and ready from day one.</h2>
-              <p className="text-lg text-[#6D6A63] mb-6 leading-relaxed">We guide you through opening your Australian bank account before arrival, so you can transfer funds, receive salary, and make payments immediately.</p>
+              <h2 className="font-heading font-bold text-[clamp(28px,3.5vw,40px)] text-[#333333] mb-6">Your bank account opens before you land.</h2>
+              <p className="text-lg text-[#6D6A63] mb-6 leading-relaxed">We walk you through opening your Australian account weeks in advance. By arrival day, your card works, your transfers are set up, and you can pay for anything the moment you step through customs.</p>
               <div className="bg-[#F4F2EE] rounded-xl p-6 mb-6">
                 <p className="text-sm text-[#6D6A63] mb-2">Note</p>
                 <p className="text-sm text-[#333333]">Banking information is general only and does not constitute financial advice under the Corporations Act 2001.</p>
@@ -130,8 +130,8 @@ export default function Arrive() {
       <section className="py-24 px-6 lg:px-12 bg-[#001450]">
         <div className="max-w-4xl mx-auto text-center">
           <p className="eyebrow mb-4 text-[#E6E0B8]">THE OUTCOME</p>
-          <h2 className="font-heading font-bold text-[clamp(32px,4vw,48px)] text-white mb-6">You arrive ready — not scrambling.</h2>
-          <p className="text-lg text-white/80 mb-8 max-w-2xl mx-auto">Your first week feels like a head start, not a catch-up. You're contactable, banked, compliant, and ready for work or school.</p>
+          <h2 className="font-heading font-bold text-[clamp(32px,4vw,48px)] text-white mb-6">Your first week should feel like a head start — not a catch-up session.</h2>
+          <p className="text-lg text-white/80 mb-8 max-w-2xl mx-auto">Every hour you save in week one is an hour you spend actually building your Australian life — not recovering from the admin of arriving.</p>
           <Link to="/contact" className="btn-primary">Prepare for Day One<ArrowRight className="ml-2 w-4 h-4" /></Link>
         </div>
       </section>

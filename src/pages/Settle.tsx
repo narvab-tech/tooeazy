@@ -42,10 +42,10 @@ export default function Settle() {
             <div className="settle-hero-text">
               <p className="eyebrow mb-6">S - SETTLE</p>
               <h1 className="font-heading font-bold text-[clamp(40px,6vw,72px)] text-[#333333] mb-6 leading-[1.05]">
-                Settle without<br /><span className="text-[#50BE00]">the costly detours.</span>
+                This is where Australia<br /><span className="text-[#50BE00]">stops being a destination.</span>
               </h1>
               <p className="text-lg lg:text-xl text-[#6D6A63] mb-8 max-w-lg leading-relaxed">
-                Long-term stability: suburb, accommodation, schooling, jobs, and Medicare. From Day 0 + 72 hours, and beyond.
+                Housing, schools, healthcare, career, community. The Settle phase builds the foundations that turn 'I've arrived' into 'I live here.'
               </p>
               <Link to="/contact" className="btn-primary">Plan Your Settlement<ArrowRight className="ml-2 w-4 h-4" /></Link>
             </div>
@@ -60,8 +60,8 @@ export default function Settle() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <p className="eyebrow mb-4">FULL SETTLEMENT SUPPORT</p>
-            <h2 className="font-heading font-bold text-[clamp(32px,4vw,48px)] text-[#333333] mb-4">Everything for long-term stability.</h2>
-            <p className="text-lg text-[#6D6A63] max-w-2xl mx-auto">Smart choices now, fewer corrections later.</p>
+            <h2 className="font-heading font-bold text-[clamp(32px,4vw,48px)] text-[#333333] mb-4">Everything you need to feel genuinely settled — not just unpacked.</h2>
+            <p className="text-lg text-[#6D6A63] max-w-2xl mx-auto">We've seen the patterns. The suburb that seemed perfect but had a 45-minute commute. The resume that was brilliant — but not Australian. We help you avoid all of it.</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {serviceGroups.map((group) => (
@@ -90,8 +90,8 @@ export default function Settle() {
             <div><img src="/images/settle_career.jpg" alt="Career preparation" className="rounded-2xl shadow-image w-full object-cover aspect-[4/3]" /></div>
             <div>
               <p className="eyebrow mb-4">CAREER SUPPORT</p>
-              <h2 className="font-heading font-bold text-[clamp(28px,3.5vw,40px)] text-[#333333] mb-6">Ready to work. Connected to opportunity.</h2>
-              <p className="text-lg text-[#6D6A63] mb-6 leading-relaxed">Resume aligned to local standards, LinkedIn tuned for your market, and a shortlist of roles and recruiters—before you arrive.</p>
+              <h2 className="font-heading font-bold text-[clamp(28px,3.5vw,40px)] text-[#333333] mb-6">Walk into the Australian job market prepared — not learning as you go.</h2>
+              <p className="text-lg text-[#6D6A63] mb-6 leading-relaxed">Your experience is real. The way you present it here just needs to match what Australian employers expect. We align your resume, LinkedIn, and job search strategy to the local market — before you land.</p>
               <ul className="space-y-3 mb-8">
                 <li className="flex items-center gap-3 text-[#6D6A63]"><Check className="w-5 h-5 text-[#50BE00]" /> Australian resume format</li>
                 <li className="flex items-center gap-3 text-[#6D6A63]"><Check className="w-5 h-5 text-[#50BE00]" /> LinkedIn optimization</li>
@@ -109,8 +109,8 @@ export default function Settle() {
       <section className="py-24 px-6 lg:px-12 bg-[#001450]">
         <div className="max-w-4xl mx-auto text-center">
           <p className="eyebrow mb-4 text-[#E6E0B8]">THE OUTCOME</p>
-          <h2 className="font-heading font-bold text-[clamp(32px,4vw,48px)] text-white mb-6">Smart choices now, fewer corrections later.</h2>
-          <p className="text-lg text-white/70 mb-8 max-w-2xl mx-auto">Most clients feel 'settled' within 60-90 days—because the groundwork is done before the plane lands.</p>
+          <h2 className="font-heading font-bold text-[clamp(32px,4vw,48px)] text-white mb-6">Smart choices now. Fewer corrections later.</h2>
+          <p className="text-lg text-white/70 mb-8 max-w-2xl mx-auto">Families who plan their settlement properly feel genuinely at home within 60–90 days. The ones who don't? They're making the same decisions again six months in.</p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link to="/contact" className="btn-primary">Plan Your Settlement<ArrowRight className="ml-2 w-4 h-4" /></Link>
             <Link to="/packages" className="px-8 py-4 border border-white/30 text-white rounded-lg font-medium hover:bg-white/10 transition-colors">View Pricing</Link>

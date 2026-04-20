@@ -38,16 +38,16 @@ export default function Decide() {
   }, []);
 
   const services = [
-    { icon: Users, title: 'Lifestyle Consult', description: 'Compare your current life to realistic Australian scenarios.' },
-    { icon: FileText, title: 'Visa Consult (via MARA Partner)', description: 'Clarify pathways, risks and timing without overpromising.' },
-    { icon: MapPin, title: 'Region & Suburb Shortlisting', description: 'Narrow 10-15 options down to 2-3 viable targets.' },
-    { icon: GraduationCap, title: 'School Feasibility', description: 'Understand public vs private, zoning, fees and waitlists.' }
+    { icon: Users, title: 'Lifestyle Consult', description: 'An honest look at your current life vs what Australian life actually looks like. Not Instagram. Reality.' },
+    { icon: FileText, title: 'Visa Consult (via MARA Partner)', description: 'Your pathway, risks, and timeline — explained clearly by a MARA partner. No vague reassurances, no overpromising.' },
+    { icon: MapPin, title: 'Region & Suburb Shortlisting', description: 'We compare 10–15 locations against your commute, school zones, budget, and lifestyle. You get 2–3 real, researched targets.' },
+    { icon: GraduationCap, title: 'School Feasibility', description: 'The zoning rules that catch parents by surprise. The waitlists nobody mentions until it’s too late. We map it all before you commit.' }
   ];
 
   const targetAudience = [
-    { icon: Briefcase, title: 'Skilled Workers', description: 'Deciding between Australia and another country.' },
-    { icon: Users, title: 'Families', description: 'Unsure which city or suburb makes sense for schooling.' },
-    { icon: Building, title: 'Employer-Sponsored Migrants', description: 'Wanting clarity before signing contracts.' }
+    { icon: Briefcase, title: 'Skilled Workers', description: 'Weighing Australia against Singapore, Canada, or the UK — and need an honest, unbiased comparison before you commit.' },
+    { icon: Users, title: 'Families', description: 'The city matters less than the suburb. We help you find the right one for your kids\u2019 schools, your commute, and your life.' },
+    { icon: Building, title: 'Employer-Sponsored Migrants', description: 'Your employer chose the city. We help you choose the right part of it — before you sign a lease.' }
   ];
 
   return (
@@ -58,10 +58,10 @@ export default function Decide() {
             <div className="decide-hero-text">
               <p className="eyebrow mb-6">D - DECIDE</p>
               <h1 className="font-heading font-bold text-[clamp(36px,5vw,64px)] text-[#333333] mb-6 leading-[1.1]">
-                Make the right<br /><span className="text-[#50BE00]">move decision.</span>
+                Before you spend a cent —<br /><span className="text-[#50BE00]">make sure you're moving right.</span>
               </h1>
               <p className="text-lg lg:text-xl text-[#6D6A63] mb-8 max-w-lg leading-relaxed">
-                Before you invest in visas, flights and shipping, we help you test whether Australia - and specific regions - truly align with your lifestyle, finances and family needs.
+                The suburb you choose shapes your kids' schools, your daily commute, your social circle. Most families make this call based on a Google search and a friend's recommendation. We go deeper — before you spend big.
               </p>
               <Link to="/contact" className="btn-primary">Check Your Readiness<ArrowRight className="ml-2 w-4 h-4" /></Link>
             </div>
@@ -77,7 +77,7 @@ export default function Decide() {
           <div className="text-center mb-16">
             <p className="eyebrow mb-4">WHAT'S INCLUDED</p>
             <h2 className="font-heading font-bold text-[clamp(28px,4vw,44px)] text-[#333333] mb-4">Decide phase services</h2>
-            <p className="text-lg text-[#6D6A63] max-w-2xl mx-auto">Behind-the-scenes support that gives you clarity before committing.</p>
+            <p className="text-lg text-[#6D6A63] max-w-2xl mx-auto">The research, honesty, and local knowledge you need before you commit to anything.</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {services.map((service) => (
@@ -100,7 +100,7 @@ export default function Decide() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div>
               <p className="eyebrow mb-4">WHO THIS IS FOR</p>
-              <h2 className="font-heading font-bold text-[clamp(28px,4vw,44px)] text-[#333333] mb-6">Is the Decide phase right for you?</h2>
+              <h2 className="font-heading font-bold text-[clamp(28px,4vw,44px)] text-[#333333] mb-6">The Decide phase is for people who want to get this right.</h2>
               <div className="space-y-4">
                 {targetAudience.map((item) => (
                   <div key={item.title} className="audience-card bg-white rounded-xl p-5 flex items-start gap-4 shadow-card">
@@ -135,8 +135,8 @@ export default function Decide() {
       <section className="py-24 px-6 lg:px-12 bg-[#001450]">
         <div className="max-w-4xl mx-auto text-center">
           <p className="eyebrow mb-4 text-[#E6E0B8]">THE OUTCOME</p>
-          <h2 className="font-heading font-bold text-[clamp(28px,4vw,44px)] text-white mb-6">Clarity before decisions. No guesswork.</h2>
-          <p className="text-lg text-white/70 mb-8 max-w-2xl mx-auto">You'll know exactly what life in Australia looks like for you before you spend big.</p>
+          <h2 className="font-heading font-bold text-[clamp(28px,4vw,44px)] text-white mb-6">Know before you go. No guesswork. No regrets.</h2>
+          <p className="text-lg text-white/70 mb-8 max-w-2xl mx-auto">You'll know exactly what life in Australia looks like for your family — before you spend a dollar on flights, visas, or a shipping container.</p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link to="/contact" className="btn-primary">Check Your Readiness<ArrowRight className="ml-2 w-4 h-4" /></Link>
             <Link to="/packages" className="px-8 py-4 border border-white/30 text-white rounded-lg font-medium hover:bg-white/10 transition-colors">View Pricing</Link>

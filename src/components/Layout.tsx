@@ -38,7 +38,7 @@ export default function Layout({ children, title, description }: LayoutProps) {
 
   const pageTitle = title ? title + ' | TooEazy' : 'TooEazy - Your Life Architect for Australia';
   const pageDescription = description || 'TooEazy helps skilled migrants Decide with confidence, Arrive without friction, and Settle without regret in Australia.';
-  const fullUrl = `https://tooeazy.au${location.pathname === '/' ? '' : location.pathname}`;
+  const fullUrl = `https://www.tooeazy.com.au${location.pathname === '/' ? '' : location.pathname}`;
 
   return (
     <>
@@ -51,11 +51,11 @@ export default function Layout({ children, title, description }: LayoutProps) {
         <meta property="og:description" content={pageDescription} />
         <meta property="og:type" content="website" />
         <meta property="og:url" content={fullUrl} />
-        <meta property="og:image" content="https://tooeazy.au/images/og-image.jpg" />
+        <meta property="og:image" content="https://www.tooeazy.com.au/images/og-image.svg" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={pageTitle} />
         <meta name="twitter:description" content={pageDescription} />
-        <meta name="twitter:image" content="https://tooeazy.au/images/og-image.jpg" />
+        <meta name="twitter:image" content="https://www.tooeazy.com.au/images/og-image.svg" />
       </Helmet>
 
       {/* Skip to content link for accessibility */}

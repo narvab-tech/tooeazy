@@ -96,7 +96,7 @@ export default function Contact() {
             Ready when<br /><span className="text-[#50BE00]">you are.</span>
           </h1>
           <p className="text-lg lg:text-xl text-[#6D6A63] max-w-2xl mx-auto leading-relaxed">
-            Tell us your timeline. We'll reply within 1 business day with next steps.
+            Tell us where you are in the journey. We'll tell you exactly how we can help — and what working together would look like.
           </p>
         </div>
       </section>
@@ -136,8 +136,8 @@ export default function Contact() {
                 </div>
               ) : (
                 <>
-                  <h3 className="font-heading font-bold text-2xl text-[#333333] mb-2">Send us a message</h3>
-                  <p className="text-[#6D6A63] mb-6">Fill in the form below and we'll get back to you shortly.</p>
+                  <h3 className="font-heading font-bold text-2xl text-[#333333] mb-2">Tell us about your move</h3>
+                  <p className="text-[#6D6A63] mb-6">A few details and we'll come back to you with honest, practical next steps.</p>
                   <form onSubmit={handleSubmit} noValidate className="space-y-5">
                     {/* Honeypot - hidden from real users */}
                     <input
@@ -237,9 +237,9 @@ export default function Contact() {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
-              { num: '1', title: 'We Respond', desc: "Within 1 business day, we'll reply with available times." },
-              { num: '2', title: 'Free Consultation', desc: 'A 15-minute call to understand your needs and timeline.' },
-              { num: '3', title: 'Get Started', desc: 'We begin with a clear plan tailored to your situation.' }
+              { num: '1', title: 'We Respond', desc: "You hear from us within 1 business day. No auto-replies, no waiting rooms." },
+              { num: '2', title: 'Free Consultation', desc: 'A real 15-minute conversation — not a sales pitch. We listen first, then tell you honestly if we can help.' },
+              { num: '3', title: 'Get Started', desc: "If it's a good fit, we build your plan together. If it's not, we'll tell you honestly." }
             ].map((step) => (
               <div key={step.num} className="text-center">
                 <div className="w-16 h-16 bg-[#50BE00]/10 rounded-full flex items-center justify-center mx-auto mb-4">
