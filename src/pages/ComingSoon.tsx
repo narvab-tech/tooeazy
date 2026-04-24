@@ -1,35 +1,91 @@
 import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ArrowRight } from 'lucide-react';
+import createGlobe from 'cobe';
 
-const ROUTES = [
-  { id: 'london',    name: 'London',    cx: 60,  cy: 78,  d: 'M 60,78 Q 285,92 470,332',    dur: 3.2, begin: 0   },
-  { id: 'dubai',     name: 'Dubai',     cx: 188, cy: 90,  d: 'M 188,90 Q 365,140 470,332',   dur: 2.6, begin: 0.8 },
-  { id: 'mumbai',    name: 'Mumbai',    cx: 224, cy: 118, d: 'M 224,118 Q 385,158 470,332',   dur: 2.9, begin: 1.5 },
-  { id: 'singapore', name: 'Singapore', cx: 396, cy: 172, d: 'M 396,172 Q 456,234 470,332',   dur: 2.1, begin: 2.2 },
-  { id: 'toronto',   name: 'Toronto',   cx: 30,  cy: 128, d: 'M 30,128 Q 192,-16 470,332',    dur: 4,   begin: 0.4 },
+type LatLng = [number, number];
+
+// cobe arcs: flights from major cities → Australian cities
+const ARCS: { from: LatLng; to: LatLng }[] = [
+  { from: [51.5074, -0.1278],  to: [-33.8688, 151.2093] }, // London → Sydney
+  { from: [25.2048,  55.271],  to: [-37.8136, 144.9631] }, // Dubai → Melbourne
+  { from: [19.076,   72.8777], to: [-31.9505, 115.8605] }, // Mumbai → Perth
+  { from: [ 1.3521, 103.8198], to: [-33.8688, 151.2093] }, // Singapore → Sydney
+  { from: [43.6532, -79.3832], to: [-27.4698, 153.0251] }, // Toronto → Brisbane
 ];
 
-// Simplified Australia outline — clockwise from NW
-const AU_D =
-  'M 352,228 L 382,209 L 398,204 L 425,212 L 468,267 L 472,326 ' +
-  'L 465,369 L 448,389 L 425,397 L 385,397 L 362,393 L 345,385 ' +
-  'L 323,369 L 307,338 L 305,302 L 310,263 L 320,241 L 340,225 Z';
+// Australian city markers
+const MARKERS: { location: LatLng; size: number }[] = [
+  { location: [-33.8688, 151.2093], size: 0.06 }, // Sydney
+  { location: [-37.8136, 144.9631], size: 0.05 }, // Melbourne
+  { location: [-31.9505, 115.8605], size: 0.04 }, // Perth
+  { location: [-27.4698, 153.0251], size: 0.04 }, // Brisbane
+];
 
 export default function ComingSoon() {
   const [email, setEmail]         = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [error, setError]         = useState('');
-  const rootRef = useRef<HTMLDivElement>(null);
+  const rootRef    = useRef<HTMLDivElement>(null);
+  const canvasRef  = useRef<HTMLCanvasElement>(null);
+  const globeRef   = useRef<{ destroy: () => void } | null>(null);
 
+  // GSAP entrance animations
   useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.fromTo('.cs-logo', { y: -18, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, ease: 'power3.out' });
       gsap.fromTo('.cs-head', { y: 28,  opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out', delay: 0.2 });
-      gsap.fromTo('.cs-map',  { scale: 0.94, opacity: 0 }, { scale: 1, opacity: 1, duration: 1.1, ease: 'power3.out', delay: 0.42 });
+      gsap.fromTo('.cs-map',  { opacity: 0 }, { opacity: 1, duration: 1.2, ease: 'power2.out', delay: 0.4 });
       gsap.fromTo('.cs-form', { y: 18,  opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, ease: 'power3.out', delay: 0.72 });
     }, rootRef);
     return () => ctx.revert();
+  }, []);
+
+  // cobe globe — centered on Australia (lng 133.77°E, lat -25.27°)
+  useEffect(() => {
+    if (!canvasRef.current) return;
+    const canvas = canvasRef.current;
+    const size = canvas.offsetWidth * window.devicePixelRatio;
+    canvas.width  = size;
+    canvas.height = size;
+
+    let phi   = 2.35;  // ≈ 133.7°E — Australia longitude
+    let rafId = 0;
+
+    const globe = createGlobe(canvas, {
+      devicePixelRatio: window.devicePixelRatio,
+      width:  size,
+      height: size,
+      phi,
+      theta: -0.35,           // tilt toward southern hemisphere
+      dark: 1,
+      diffuse: 1.8,
+      mapSamples: 18000,
+      mapBrightness: 5,
+      baseColor:   [0.02, 0.07, 0.26],
+      markerColor: [0.31, 0.75, 0],
+      glowColor:   [0.05, 0.15, 0.45],
+      arcColor:    [0.31, 0.75, 0],
+      arcWidth: 0.6,
+      arcHeight: 0.35,
+      markers: MARKERS,
+      arcs:    ARCS,
+    });
+
+    const animate = () => {
+      phi += 0.002;
+      // Slow idle oscillation centered on Australia
+      const drift = 2.35 + Math.sin(phi * 0.12) * 0.18;
+      globe.update({ phi: drift });
+      rafId = requestAnimationFrame(animate);
+    };
+    rafId = requestAnimationFrame(animate);
+
+    globeRef.current = globe;
+    return () => {
+      cancelAnimationFrame(rafId);
+      globe.destroy();
+    };
   }, []);
 
   function handleSubmit(e: React.FormEvent) {
@@ -75,136 +131,13 @@ export default function ComingSoon() {
         </p>
       </div>
 
-      {/* ── Interactive SVG flight map ── */}
-      <div className="cs-map w-full max-w-2xl my-8 select-none">
-        <svg
-          viewBox="0 0 600 480"
-          width="100%"
-          aria-label="Animated map showing migration flight paths to Australia"
-          style={{ overflow: 'visible' }}
-        >
-          <defs>
-            <filter id="gl-sm" x="-50%" y="-50%" width="200%" height="200%">
-              <feGaussianBlur stdDeviation="2.5" result="b" />
-              <feMerge><feMergeNode in="b" /><feMergeNode in="SourceGraphic" /></feMerge>
-            </filter>
-            <filter id="gl-lg" x="-100%" y="-100%" width="300%" height="300%">
-              <feGaussianBlur stdDeviation="7" result="b" />
-              <feMerge><feMergeNode in="b" /><feMergeNode in="SourceGraphic" /></feMerge>
-            </filter>
-            <style>{`
-              .g-dot { fill: rgba(255,255,255,.028); }
-              .fl-path {
-                fill: none;
-                stroke: rgba(80,190,0,.18);
-                stroke-width: 1.4;
-                stroke-dasharray: 5 5;
-                stroke-linecap: round;
-                transition: stroke .25s, stroke-width .25s;
-              }
-              .fl-group:hover .fl-path {
-                stroke: rgba(80,190,0,.55);
-                stroke-width: 1.8;
-              }
-              .org-dot {
-                fill: rgba(255,255,255,.28);
-                stroke: rgba(255,255,255,.18);
-                stroke-width: 1;
-                cursor: pointer;
-                transition: fill .22s;
-              }
-              .fl-group:hover .org-dot {
-                fill: #50BE00;
-                stroke: rgba(80,190,0,.55);
-              }
-              .org-label {
-                fill: rgba(200,194,168,0);
-                font-family: 'Open Sans', sans-serif;
-                font-size: 9px;
-                pointer-events: none;
-                transition: fill .22s;
-              }
-              .fl-group:hover .org-label { fill: rgba(200,194,168,.95); }
-              .au-shape {
-                fill: rgba(80,190,0,.055);
-                stroke: rgba(80,190,0,.38);
-                stroke-width: 1.4;
-                stroke-linejoin: round;
-                transition: fill .3s, stroke .3s;
-              }
-              .au-shape:hover {
-                fill: rgba(80,190,0,.11);
-                stroke: rgba(80,190,0,.65);
-              }
-              .syd-ring {
-                fill: none;
-                stroke: rgba(80,190,0,.6);
-                stroke-width: 1;
-                animation: syd-pulse 2.2s ease-out infinite;
-                transform-box: fill-box;
-                transform-origin: center;
-              }
-              @keyframes syd-pulse {
-                0%   { r: 5;  opacity: .9; }
-                100% { r: 24; opacity: 0; }
-              }
-            `}</style>
-          </defs>
-
-          {/* Dot grid */}
-          {Array.from({ length: 11 }, (_, row) =>
-            Array.from({ length: 14 }, (_, col) => (
-              <circle key={`${row}-${col}`} className="g-dot" cx={col * 46 + 18} cy={row * 46 + 18} r="1.1" />
-            ))
-          )}
-
-          {/* Flight routes */}
-          {ROUTES.map(r => (
-            <g key={r.id} className="fl-group">
-              <path id={`fp-${r.id}`} className="fl-path" d={r.d} />
-
-              {/* Traveling dot */}
-              <circle r="2.8" fill="#50BE00" filter="url(#gl-sm)">
-                <animateMotion dur={`${r.dur}s`} repeatCount="indefinite" begin={`${r.begin}s`}>
-                  {/* eslint-disable-next-line react/no-unknown-property */}
-                  <mpath xlinkHref={`#fp-${r.id}`} />
-                </animateMotion>
-                <animate
-                  attributeName="opacity"
-                  values="0;1;1;0"
-                  keyTimes="0;0.07;0.9;1"
-                  dur={`${r.dur}s`}
-                  repeatCount="indefinite"
-                  begin={`${r.begin}s`}
-                />
-              </circle>
-
-              {/* Origin city */}
-              <circle cx={r.cx} cy={r.cy} r="4" className="org-dot" />
-              <text x={r.cx + 8} y={r.cy + 3.5} className="org-label">{r.name}</text>
-            </g>
-          ))}
-
-          {/* Australia shape */}
-          <path className="au-shape" d={AU_D} />
-
-          {/* Sydney destination */}
-          <circle cx="470" cy="332" r="5"   className="syd-ring" />
-          <circle cx="470" cy="332" r="5"   fill="rgba(80,190,0,.22)" filter="url(#gl-lg)" />
-          <circle cx="470" cy="332" r="3.2" fill="#50BE00" filter="url(#gl-sm)" />
-          <circle cx="470" cy="332" r="1.5" fill="#fff" />
-          <text x="478" y="344" fontSize="7.5" fill="rgba(80,190,0,.65)" fontFamily="Open Sans, sans-serif">Sydney</text>
-
-          {/* Australia label */}
-          <text x="388" y="314" textAnchor="middle" fontSize="8.5" fill="rgba(80,190,0,.3)"
-            fontFamily="Poppins, sans-serif" fontWeight="600" letterSpacing="3">AUSTRALIA</text>
-
-          {/* FROM ANYWHERE label */}
-          <text x="72" y="42" fontSize="7" fill="rgba(78,96,122,.65)"
-            fontFamily="Open Sans, sans-serif" letterSpacing="2">FROM ANYWHERE</text>
-          <line x1="168" y1="39" x2="182" y2="39" stroke="rgba(78,96,122,.4)" strokeWidth="1" />
-          <polygon points="183,36 188,39 183,42" fill="rgba(78,96,122,.4)" />
-        </svg>
+      {/* ── cobe Globe ── */}
+      <div className="cs-map w-full max-w-md my-6 flex items-center justify-center select-none">
+        <canvas
+          ref={canvasRef}
+          style={{ width: '100%', aspectRatio: '1 / 1', borderRadius: '50%' }}
+          aria-label="3D globe showing flight paths to Australia"
+        />
       </div>
 
       {/* Notify form */}
