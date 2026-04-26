@@ -65,7 +65,9 @@ export default function Layout({ children, title, description }: LayoutProps) {
 
       <nav className={scrolled ? 'fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-white/95 backdrop-blur shadow-sm' : 'fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-transparent'}>
         <div className="px-6 lg:px-12 py-5 flex items-center justify-between">
-          <Link to="/" className="font-heading font-bold text-xl text-[#333333]">TooEazy</Link>
+          <Link to="/" className="flex items-center">
+            <img src="/images/tooeazy-logo.jpeg" alt="TooEazy MJ Associates" className="h-10 w-auto" />
+          </Link>
           <div className="hidden lg:flex items-center gap-6">
             {navLinks.map((link) => (
               <Link 
@@ -114,7 +116,7 @@ export default function Layout({ children, title, description }: LayoutProps) {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
             <div className="md:col-span-2">
-              <h3 className="font-heading font-bold text-2xl mb-4">TooEazy</h3>
+              <img src="/images/tooeazy-logo.jpeg" alt="TooEazy MJ Associates" className="h-12 w-auto mb-4" />
               <p className="text-white/60 max-w-sm mb-4">
                 Your life architect for Australia. We help skilled migrants Decide, Arrive, Settle, and call it Home.
               </p>
